@@ -38,7 +38,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 .si-flag{font-size:22px;flex-shrink:0;}
 .si-name{font-size:14px;font-weight:600;color:var(--text);}
 .si-sub{font-size:11px;color:var(--muted);margin-top:1px;}
-.btn{width:100%;margin-top:16px;padding:16px;background:linear-gradient(135deg,#1D4ED8,#3B82F6);border:none;border-radius:12px;color:#fff;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;outline:none;}
+.btn{width:100%;margin-top:16px;padding:16px;background:linear-gradient(135deg,#1D4ED8,#3B82F6);border:none;border-radius:12px;color:#fff;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;}
 .btn:hover{opacity:.9;transform:translateY(-1px);}
 .btn:active{transform:none;}
 .err{display:none;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:10px;padding:10px 14px;font-size:13px;color:#FCA5A5;margin-top:10px;}
@@ -163,9 +163,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 </div>
 </div>
 <script>
-// ══════════════════════════════════════════
-// CIDADES — lat negativo=Sul, positivo=Norte
-// ══════════════════════════════════════════
 const CITIES=[
 {n:"Governador Valadares",c:"Brasil",f:"🇧🇷",lat:-18.85,alt:178,mari:false},
 {n:"São Paulo",c:"Brasil",f:"🇧🇷",lat:-23.55,alt:760,mari:false},
@@ -183,407 +180,35 @@ const CITIES=[
 {n:"Florianópolis",c:"Brasil",f:"🇧🇷",lat:-27.60,alt:3,mari:true},
 {n:"Vitória",c:"Brasil",f:"🇧🇷",lat:-20.32,alt:7,mari:true},
 {n:"Natal",c:"Brasil",f:"🇧🇷",lat:-5.79,alt:30,mari:true},
-{n:"Campo Grande",c:"Brasil",f:"🇧🇷",lat:-20.44,alt:592,mari:false},
-{n:"Teresina",c:"Brasil",f:"🇧🇷",lat:-5.09,alt:73,mari:false},
-{n:"São Luís",c:"Brasil",f:"🇧🇷",lat:-2.53,alt:28,mari:true},
-{n:"Maceió",c:"Brasil",f:"🇧🇷",lat:-9.67,alt:7,mari:true},
-{n:"João Pessoa",c:"Brasil",f:"🇧🇷",lat:-7.12,alt:37,mari:true},
-{n:"Aracaju",c:"Brasil",f:"🇧🇷",lat:-10.91,alt:4,mari:true},
-{n:"Uberlândia",c:"Brasil",f:"🇧🇷",lat:-18.92,alt:869,mari:false},
-{n:"Campinas",c:"Brasil",f:"🇧🇷",lat:-22.91,alt:680,mari:false},
-{n:"Santos",c:"Brasil",f:"🇧🇷",lat:-23.96,alt:3,mari:true},
-{n:"Juiz de Fora",c:"Brasil",f:"🇧🇷",lat:-21.76,alt:678,mari:false},
-{n:"Montes Claros",c:"Brasil",f:"🇧🇷",lat:-16.73,alt:652,mari:false},
-{n:"Ipatinga",c:"Brasil",f:"🇧🇷",lat:-19.47,alt:236,mari:false},
-{n:"Ribeirão Preto",c:"Brasil",f:"🇧🇷",lat:-21.17,alt:546,mari:false},
-{n:"Porto Velho",c:"Brasil",f:"🇧🇷",lat:-8.76,alt:94,mari:false},
-{n:"Palmas",c:"Brasil",f:"🇧🇷",lat:-10.18,alt:280,mari:false},
-{n:"Macapá",c:"Brasil",f:"🇧🇷",lat:0.04,alt:14,mari:true},
-{n:"Boa Vista",c:"Brasil",f:"🇧🇷",lat:2.82,alt:90,mari:false},
-{n:"Buenos Aires",c:"Argentina",f:"🇦🇷",lat:-34.60,alt:25,mari:true},
-{n:"Córdoba",c:"Argentina",f:"🇦🇷",lat:-31.42,alt:440,mari:false},
-{n:"Santiago",c:"Chile",f:"🇨🇱",lat:-33.46,alt:520,mari:false},
-{n:"Valdivia",c:"Chile",f:"🇨🇱",lat:-39.81,alt:9,mari:true},
-{n:"Montevideo",c:"Uruguai",f:"🇺🇾",lat:-34.90,alt:43,mari:true},
-{n:"Lima",c:"Peru",f:"🇵🇪",lat:-12.05,alt:154,mari:true},
-{n:"La Paz",c:"Bolívia",f:"🇧🇴",lat:-16.50,alt:3640,mari:false},
-{n:"Bogotá",c:"Colômbia",f:"🇨🇴",lat:4.71,alt:2625,mari:false},
-{n:"Caracas",c:"Venezuela",f:"🇻🇪",lat:10.48,alt:900,mari:false},
-{n:"Havana",c:"Cuba",f:"🇨🇺",lat:23.13,alt:59,mari:true},
-{n:"Cidade do México",c:"México",f:"🇲🇽",lat:19.43,alt:2240,mari:false},
-{n:"Mexico City",c:"Mexico",f:"🇲🇽",lat:19.43,alt:2240,mari:false},
-{n:"Cancún",c:"México",f:"🇲🇽",lat:21.16,alt:10,mari:true},
-{n:"New York",c:"EUA",f:"🇺🇸",lat:40.71,alt:10,mari:true},
-{n:"Los Angeles",c:"EUA",f:"🇺🇸",lat:34.05,alt:86,mari:true},
-{n:"Chicago",c:"EUA",f:"🇺🇸",lat:41.88,alt:182,mari:false},
-{n:"Miami",c:"EUA",f:"🇺🇸",lat:25.77,alt:2,mari:true},
-{n:"Houston",c:"EUA",f:"🇺🇸",lat:29.76,alt:15,mari:false},
-{n:"Seattle",c:"EUA",f:"🇺🇸",lat:47.61,alt:52,mari:true},
-{n:"Denver",c:"EUA",f:"🇺🇸",lat:39.74,alt:1609,mari:false},
-{n:"Las Vegas",c:"EUA",f:"🇺🇸",lat:36.17,alt:620,mari:false},
-{n:"Boston",c:"EUA",f:"🇺🇸",lat:42.36,alt:9,mari:true},
-{n:"Washington DC",c:"EUA",f:"🇺🇸",lat:38.91,alt:7,mari:false},
-{n:"Toronto",c:"Canadá",f:"🇨🇦",lat:43.65,alt:76,mari:false},
-{n:"Vancouver",c:"Canadá",f:"🇨🇦",lat:49.25,alt:70,mari:true},
-{n:"Montreal",c:"Canadá",f:"🇨🇦",lat:45.51,alt:41,mari:false},
-{n:"Lisboa",c:"Portugal",f:"🇵🇹",lat:38.72,alt:92,mari:true},
-{n:"Porto",c:"Portugal",f:"🇵🇹",lat:41.16,alt:104,mari:true},
-{n:"Madrid",c:"Espanha",f:"🇪🇸",lat:40.42,alt:667,mari:false},
-{n:"Barcelona",c:"Espanha",f:"🇪🇸",lat:41.39,alt:12,mari:true},
 {n:"Paris",c:"França",f:"🇫🇷",lat:48.85,alt:35,mari:false},
-{n:"Lyon",c:"França",f:"🇫🇷",lat:45.75,alt:173,mari:false},
-{n:"Londres",c:"Reino Unido",f:"🇬🇧",lat:51.51,alt:11,mari:false},
-{n:"London",c:"UK",f:"🇬🇧",lat:51.51,alt:11,mari:false},
-{n:"Berlim",c:"Alemanha",f:"🇩🇪",lat:52.52,alt:34,mari:false},
-{n:"Berlin",c:"Germany",f:"🇩🇪",lat:52.52,alt:34,mari:false},
-{n:"Munique",c:"Alemanha",f:"🇩🇪",lat:48.14,alt:519,mari:false},
-{n:"Munich",c:"Germany",f:"🇩🇪",lat:48.14,alt:519,mari:false},
-{n:"Roma",c:"Itália",f:"🇮🇹",lat:41.90,alt:21,mari:false},
-{n:"Rome",c:"Italy",f:"🇮🇹",lat:41.90,alt:21,mari:false},
-{n:"Milão",c:"Itália",f:"🇮🇹",lat:45.46,alt:122,mari:false},
-{n:"Milan",c:"Italy",f:"🇮🇹",lat:45.46,alt:122,mari:false},
-{n:"Veneza",c:"Itália",f:"🇮🇹",lat:45.44,alt:1,mari:true},
-{n:"Amsterdã",c:"Holanda",f:"🇳🇱",lat:52.37,alt:0,mari:true},
-{n:"Amsterdam",c:"Netherlands",f:"🇳🇱",lat:52.37,alt:0,mari:true},
-{n:"Viena",c:"Áustria",f:"🇦🇹",lat:48.21,alt:170,mari:false},
-{n:"Vienna",c:"Austria",f:"🇦🇹",lat:48.21,alt:170,mari:false},
-{n:"Zurique",c:"Suíça",f:"🇨🇭",lat:47.38,alt:408,mari:false},
-{n:"Estocolmo",c:"Suécia",f:"🇸🇪",lat:59.33,alt:28,mari:true},
-{n:"Stockholm",c:"Sweden",f:"🇸🇪",lat:59.33,alt:28,mari:true},
-{n:"Oslo",c:"Noruega",f:"🇳🇴",lat:59.91,alt:23,mari:true},
-{n:"Copenhague",c:"Dinamarca",f:"🇩🇰",lat:55.68,alt:5,mari:true},
-{n:"Helsinki",c:"Finlândia",f:"🇫🇮",lat:60.17,alt:26,mari:true},
-{n:"Varsóvia",c:"Polônia",f:"🇵🇱",lat:52.23,alt:113,mari:false},
-{n:"Warsaw",c:"Poland",f:"🇵🇱",lat:52.23,alt:113,mari:false},
-{n:"Praga",c:"Rep. Tcheca",f:"🇨🇿",lat:50.08,alt:197,mari:false},
-{n:"Prague",c:"Czech",f:"🇨🇿",lat:50.08,alt:197,mari:false},
-{n:"Budapeste",c:"Hungria",f:"🇭🇺",lat:47.50,alt:102,mari:false},
-{n:"Atenas",c:"Grécia",f:"🇬🇷",lat:37.98,alt:70,mari:true},
-{n:"Athens",c:"Greece",f:"🇬🇷",lat:37.98,alt:70,mari:true},
-{n:"Moscou",c:"Rússia",f:"🇷🇺",lat:55.75,alt:156,mari:false},
-{n:"Moscow",c:"Russia",f:"🇷🇺",lat:55.75,alt:156,mari:false},
-{n:"São Petersburgo",c:"Rússia",f:"🇷🇺",lat:59.95,alt:6,mari:true},
-{n:"Dublin",c:"Irlanda",f:"🇮🇪",lat:53.33,alt:20,mari:true},
-{n:"Tel Aviv",c:"Israel",f:"🇮🇱",lat:32.08,alt:5,mari:true},
-{n:"Jerusalém",c:"Israel",f:"🇮🇱",lat:31.77,alt:786,mari:false},
-{n:"Jerusalem",c:"Israel",f:"🇮🇱",lat:31.77,alt:786,mari:false},
-{n:"Haifa",c:"Israel",f:"🇮🇱",lat:32.82,alt:10,mari:true},
-{n:"Istambul",c:"Turquia",f:"🇹🇷",lat:41.01,alt:40,mari:true},
-{n:"Istanbul",c:"Turkey",f:"🇹🇷",lat:41.01,alt:40,mari:true},
-{n:"Ancara",c:"Turquia",f:"🇹🇷",lat:39.93,alt:938,mari:false},
-{n:"Ankara",c:"Turkey",f:"🇹🇷",lat:39.93,alt:938,mari:false},
-{n:"Dubai",c:"Emirados Árabes",f:"🇦🇪",lat:25.20,alt:5,mari:true},
-{n:"Riad",c:"Arábia Saudita",f:"🇸🇦",lat:24.69,alt:620,mari:false},
-{n:"Riyadh",c:"Saudi Arabia",f:"🇸🇦",lat:24.69,alt:620,mari:false},
-{n:"Doha",c:"Qatar",f:"🇶🇦",lat:25.29,alt:10,mari:true},
-{n:"Teerã",c:"Irã",f:"🇮🇷",lat:35.69,alt:1190,mari:false},
-{n:"Tehran",c:"Iran",f:"🇮🇷",lat:35.69,alt:1190,mari:false},
-{n:"Pequim",c:"China",f:"🇨🇳",lat:39.91,alt:44,mari:false},
-{n:"Beijing",c:"China",f:"🇨🇳",lat:39.91,alt:44,mari:false},
-{n:"Xangai",c:"China",f:"🇨🇳",lat:31.23,alt:4,mari:true},
-{n:"Shanghai",c:"China",f:"🇨🇳",lat:31.23,alt:4,mari:true},
-{n:"Hong Kong",c:"China",f:"🇨🇳",lat:22.32,alt:8,mari:true},
-{n:"Tóquio",c:"Japão",f:"🇯🇵",lat:35.69,alt:6,mari:true},
+{n:"New York",c:"EUA",f:"🇺🇸",lat:40.71,alt:10,mari:true},
 {n:"Tokyo",c:"Japan",f:"🇯🇵",lat:35.69,alt:6,mari:true},
-{n:"Osaka",c:"Japão",f:"🇯🇵",lat:34.69,alt:5,mari:true},
-{n:"Seul",c:"Coreia do Sul",f:"🇰🇷",lat:37.57,alt:38,mari:false},
-{n:"Seoul",c:"South Korea",f:"🇰🇷",lat:37.57,alt:38,mari:false},
-{n:"Nova Delhi",c:"Índia",f:"🇮🇳",lat:28.61,alt:216,mari:false},
-{n:"New Delhi",c:"India",f:"🇮🇳",lat:28.61,alt:216,mari:false},
-{n:"Mumbai",c:"Índia",f:"🇮🇳",lat:19.08,alt:14,mari:true},
-{n:"Bangkok",c:"Tailândia",f:"🇹🇭",lat:13.75,alt:2,mari:false},
-{n:"Singapura",c:"Singapura",f:"🇸🇬",lat:1.35,alt:15,mari:true},
-{n:"Singapore",c:"Singapore",f:"🇸🇬",lat:1.35,alt:15,mari:true},
-{n:"Kuala Lumpur",c:"Malásia",f:"🇲🇾",lat:3.14,alt:51,mari:false},
-{n:"Manila",c:"Filipinas",f:"🇵🇭",lat:14.60,alt:16,mari:true},
-{n:"Ho Chi Minh",c:"Vietnã",f:"🇻🇳",lat:10.82,alt:19,mari:false},
-{n:"Hanói",c:"Vietnã",f:"🇻🇳",lat:21.03,alt:6,mari:false},
-{n:"Hanoi",c:"Vietnam",f:"🇻🇳",lat:21.03,alt:6,mari:false},
-{n:"Jacarta",c:"Indonésia",f:"🇮🇩",lat:-6.21,alt:8,mari:true},
-{n:"Jakarta",c:"Indonesia",f:"🇮🇩",lat:-6.21,alt:8,mari:true},
-{n:"Cairo",c:"Egito",f:"🇪🇬",lat:30.05,alt:23,mari:false},
-{n:"Lagos",c:"Nigéria",f:"🇳🇬",lat:6.45,alt:41,mari:true},
-{n:"Nairóbi",c:"Quênia",f:"🇰🇪",lat:-1.29,alt:1795,mari:false},
-{n:"Nairobi",c:"Kenya",f:"🇰🇪",lat:-1.29,alt:1795,mari:false},
-{n:"Joanesburgo",c:"África do Sul",f:"🇿🇦",lat:-26.20,alt:1753,mari:false},
-{n:"Johannesburg",c:"South Africa",f:"🇿🇦",lat:-26.20,alt:1753,mari:false},
-{n:"Cidade do Cabo",c:"África do Sul",f:"🇿🇦",lat:-33.93,alt:10,mari:true},
-{n:"Cape Town",c:"South Africa",f:"🇿🇦",lat:-33.93,alt:10,mari:true},
-{n:"Casablanca",c:"Marrocos",f:"🇲🇦",lat:33.59,alt:56,mari:true},
-{n:"Luanda",c:"Angola",f:"🇦🇴",lat:-8.84,alt:6,mari:true},
-{n:"Maputo",c:"Moçambique",f:"🇲🇿",lat:-25.97,alt:47,mari:true},
-{n:"Sydney",c:"Austrália",f:"🇦🇺",lat:-33.87,alt:3,mari:true},
-{n:"Melbourne",c:"Austrália",f:"🇦🇺",lat:-37.81,alt:7,mari:true},
-{n:"Brisbane",c:"Austrália",f:"🇦🇺",lat:-27.47,alt:27,mari:true},
-{n:"Perth",c:"Austrália",f:"🇦🇺",lat:-31.95,alt:25,mari:true},
-{n:"Auckland",c:"Nova Zelândia",f:"🇳🇿",lat:-36.86,alt:26,mari:true},
-{n:"Wellington",c:"Nova Zelândia",f:"🇳🇿",lat:-41.29,alt:10,mari:true},
+{n:"London",c:"UK",f:"🇬🇧",lat:51.51,alt:11,mari:false},
+{n:"Barcelona",c:"España",f:"🇪🇸",lat:41.39,alt:12,mari:true},
+{n:"Berlin",c:"Germany",f:"🇩🇪",lat:52.52,alt:34,mari:false},
+{n:"Rome",c:"Italy",f:"🇮🇹",lat:41.90,alt:21,mari:false},
+{n:"Amsterdam",c:"Netherlands",f:"🇳🇱",lat:52.37,alt:0,mari:true},
+{n:"Madrid",c:"España",f:"🇪🇸",lat:40.42,alt:667,mari:false}
 ];
-// ══════════════════════════════════════════
-// TABELAS DO ENG. HERMES SOARES
-// ══════════════════════════════════════════
-const TV=[{l:0,t:28},{l:4.5,t:30},{l:9,t:33},{l:13.5,t:37},{l:18,t:39},{l:22.5,t:32},{l:27,t:30},{l:31.5,t:28},{l:36,t:26},{l:40.5,t:24},{l:45,t:20},{l:49.5,t:17},{l:54,t:14},{l:58.5,t:10},{l:63,t:4}];
-const TI=[{l:0,t:15},{l:4.5,t:16},{l:9,t:18},{l:13.5,t:20},{l:18,t:21},{l:22.5,t:18},{l:27,t:17},{l:31.5,t:14},{l:36,t:11},{l:40.5,t:8},{l:45,t:5},{l:49.5,t:2},{l:54,t:-1},{l:58.5,t:-4},{l:63,t:-8}];
-function interp(absLat, tbl){
-if(absLat<=0) return tbl[0].t;
-if(absLat>=90) return tbl[tbl.length-1].t;
-for(let i=0;i<tbl.length-1;i++){
-if(absLat>=tbl[i].l&&absLat<=tbl[i+1].l){
-const r=(absLat-tbl[i].l)/(tbl[i+1].l-tbl[i].l);
-return tbl[i].t+r*(tbl[i+1].t-tbl[i].t);
-}
-}
-return tbl[tbl.length-1].t;
-}
-// ══════════════════════════════════════════
-// CÁLCULO DA TEMPERATURA DO DIA
-// ══════════════════════════════════════════
-function calcDia(city, dateStr){
-const d = new Date(dateStr+'T12:00:00');
-const doy = Math.round((d - new Date(d.getFullYear(),0,1))/86400000)+1;
-const aLat = Math.abs(city.lat);
-const sul = city.lat < 0;
-// Temperatura pico verão e inverno com todos os ajustes
-const bV = interp(aLat, TV);
-const bI = interp(aLat, TI);
-const alt = -(city.alt/150);
-// Sul: verão +2, inverno +1 | Norte: verão -2, inverno -1
-const pV = sul ? +2 : -2;
-const pI = sul ? +1 : -1;
-const mV = city.mari ? -2 : 0;
-const mI = city.mari ? -5 : 0;
-const tPicoVerao = bV + alt + pV + mV; // máximo anual
-const tPicoInverno = bI + alt + pI + mI; // mínimo anual
-// Interpolação senoidal pelo dia do ano
-// Sul: pico calor ~jan (dia 15), Norte: pico calor ~jul (dia 196)
-const picoDia = sul ? 15 : 196;
-const fase = ((doy - picoDia) / 365) * 2 * Math.PI;
-const fator = Math.cos(fase); // +1=verão pleno, -1=inverno pleno
-// Temperatura média do dia
-const tMedia = (tPicoVerao+tPicoInverno)/2 + fator*(tPicoVerao-tPicoInverno)/2;
-// Amplitude diária (diferença entre max e min do mesmo dia)
-// Tropical ~12°C, temperado ~14°C, atenuado pelo mar
-let ampl = 10 + (aLat/90)*6;
-if(city.mari) ampl *= 0.55;
-const tMax = Math.round((tMedia + ampl/2)*10)/10;
-const tMin = Math.round((tMedia - ampl/2)*10)/10;
-return {tMax, tMin};
-}
-// ══════════════════════════════════════════
-// TRADUÇÕES
-// ══════════════════════════════════════════
-const TR={
-pt:{
-h1:'Temperatura <em>no Dia da Viagem</em>',
-hp:'Digite a cidade e a data — veja a máxima e mínima esperadas naquele dia.',
-lc:'Cidade de destino', ld:'Data da viagem',
-btn:'🌡️ Ver Temperatura no Dia',
-obs_t:'⚠️ Observação:',
-obs_b:' Valores estimados. Não se aplica a climas desérticos e semiáridos. Índice do Eng. Hermes Soares.',
-foot:'Índice desenvolvido por', foot2:'Especialista em Estruturas — UFMG e USP · Governador Valadares, MG',
-ph:'Ex: São Paulo, Paris, Tokyo...',
-lmax:'MÁXIMA', lmin:'MÍNIMA',
-lrange:'Amplitude do dia',
-lpack:'🧳 O que levar',
-lhot:'Máxima (tarde)', lcold:'Mínima (madrugada)',
-tab_max:'Cálculo Máxima', tab_min:'Cálculo Mínima',
-ec:'⚠️ Digite o nome de uma cidade.',
-est:'VALORES ESTIMADOS — não substitui a previsão meteorológica oficial',
-ed:'⚠️ Informe a data da viagem.',
-feel(t){
-if(t>=40) return'🔥 Calor extremo — risco de insolação';
-if(t>=35) return'🥵 Muito quente';
-if(t>=28) return'☀️ Quente';
-if(t>=22) return'😊 Agradável';
-if(t>=15) return'🌤️ Ameno';
-if(t>=8) return'🧥 Frio';
-if(t>=0) return'🥶 Muito frio';
-return'🧊 Abaixo de zero — risco de geada';
-},
-pack(mx,mn){
-const i=[];
-if(mx>=35) i.push('Roupas muito leves 👕','Protetor solar FPS50+ 🧴','Óculos de sol 🕶️','Chapéu ☀️','Água sempre 💧');
-else if(mx>=28) i.push('Roupas leves 👕','Protetor solar 🧴','Óculos de sol 🕶️');
-else if(mx>=20) i.push('Camiseta e calça leve 👕','Casaco fino para à tarde 🧥');
-else i.push('Roupas de meia estação 🧣','Casaco médio 🧥');
-if(mn<=10) i.push('Casaco para a noite 🧥','Suéter 🧶');
-if(mn<=2) i.push('Luvas e cachecol 🧤','Bota fechada 👢');
-if(mn<0) i.push('Roupa interior térmica 🧣','Gorro ❄️');
-return i.join('\n');
-},
-},
-en:{
-h1:'Temperature <em>on Travel Day</em>',
-hp:'Enter the city and date — see the expected high and low for that day.',
-lc:'Destination city', ld:'Travel date',
-btn:'🌡️ Get Day Temperature',
-obs_t:'⚠️ Note:',
-obs_b:' Estimated values. Does not apply to desert or semi-arid climates. Hermes Soares index.',
-foot:'Index developed by', foot2:'Structural Engineering Specialist — UFMG and USP · Brazil',
-ph:'E.g.: Paris, Tokyo, New York...',
-lmax:'HIGH', lmin:'LOW',
-lrange:'Daily range',
-lpack:'🧳 What to pack',
-lhot:'High (afternoon)', lcold:'Low (overnight)',
-tab_max:'High Calculation', tab_min:'Low Calculation',
-ec:'⚠️ Please type a city name.',
-est:'ESTIMATED VALUES — does not replace official weather forecast',
-ed:'⚠️ Please enter the travel date.',
-feel(t){
-if(t>=40) return'🔥 Extreme heat — heatstroke risk';
-if(t>=35) return'🥵 Very hot';
-if(t>=28) return'☀️ Hot';
-if(t>=22) return'😊 Pleasant';
-if(t>=15) return'🌤️ Mild';
-if(t>=8) return'🧥 Cold';
-if(t>=0) return'🥶 Very cold';
-return'🧊 Below freezing — frost risk';
-},
-pack(mx,mn){
-const i=[];
-if(mx>=35) i.push('Light summer clothes 👕','Sunscreen SPF50+ 🧴','Sunglasses 🕶️','Hat ☀️','Water always 💧');
-else if(mx>=28) i.push('Light clothes 👕','Sunscreen 🧴','Sunglasses 🕶️');
-else if(mx>=20) i.push('T-shirt and light pants 👕','Light jacket for afternoon 🧥');
-else i.push('Mid-season clothes 🧣','Medium jacket 🧥');
-if(mn<=10) i.push('Jacket for evenings 🧥','Sweater 🧶');
-if(mn<=2) i.push('Gloves and scarf 🧤','Boots 👢');
-if(mn<0) i.push('Thermal underwear 🧣','Warm hat ❄️');
-return i.join('\n');
-},
-},
-};
-// Fallback para outros idiomas
-['es','fr','de','it','ja','zh','ar','he','tr','ru'].forEach(l=>{
-TR[l]=Object.assign({},TR.en);
-});
-TR.es.h1='Temperatura <em>el Día del Viaje</em>';TR.es.hp='Ingresa la ciudad y la fecha — ve la máxima y mínima esperadas ese día.';TR.es.lc='Ciudad de destino';TR.es.ld='Fecha del viaje';TR.es.btn='🌡️ Ver Temperatura del Día';TR.es.obs_b=' Valores estimados. No aplica a climas desérticos y semiáridos. Índice del Ing. Hermes Soares.';TR.es.foot='Índice desarrollado por';TR.es.foot2='Especialista en Estructuras — UFMG y USP · Brasil';TR.es.ph='Ej: Madrid, París, Tokio...';TR.es.ec='⚠️ Ingresa el nombre de una ciudad.';TR.es.ed='⚠️ Ingresa la fecha del viaje.';
-TR.fr.h1='Température <em>le Jour du Voyage</em>';TR.fr.hp='Entrez la ville et la date — voyez le maximum et minimum attendus ce jour.';TR.fr.lc='Ville de destination';TR.fr.ld='Date du voyage';TR.fr.btn='🌡️ Voir Tempé';
-TR.de.h1='Temperatur <em>am Reisetag</em>';TR.de.hp='Stadt und Datum eingeben — Höchst- und Tiefstwert für den Tag sehen.';TR.de.lc='Zielstadt';TR.de.ld='Reisedatum';TR.de.btn='🌡️ Tagestemperatur';
-TR.it.h1='Temperatura <em>nel Giorno del Viaggio</em>';TR.it.hp='Inserisci città e data — vedi massima e minima attese per quel giorno.';TR.it.lc='Città di destinazione';TR.it.ld='Data del viaggio';TR.it.btn='🌡️ Vedi Temperatura';
-TR.ja.h1='旅行当日の<em>気温</em>';TR.ja.hp='都市と日付を入力 — その日の最高・最低気温を確認。';TR.ja.lc='目的地の都市';TR.ja.ld='旅行日';TR.ja.btn='🌡️ 気温を見る';
-TR.zh.h1='旅行当天<em>气温</em>';TR.zh.hp='输入城市和日期 — 查看当天的最高和最低气温。';TR.zh.lc='目的地城市';TR.zh.ld='旅行日期';TR.zh.btn='🌡️ 查看气温';
-TR.ar.h1='درجة الحرارة <em>يوم السفر</em>';TR.ar.hp='أدخل المدينة والتاريخ — اعرف الحرارة القصوى والدنيا.';TR.ar.lc='مدينة الوجهة';TR.ar.ld='تاريخ السفر';TR.ar.btn='🌡️ عرض درجة الحرارة';
-TR.he.h1='טמפרטורה <em>ביום הנסיעה</em>';TR.he.hp='הקלד עיר ותאריך — ראה את המרבית והמינימלית הצפויות.';TR.he.lc='עיר היעד';TR.he.ld='תאריך הנסיעה';TR.he.btn='🌡️ ראה טמפרטורה';
-TR.tr.h1='Seyahat Günü <em>Sıcaklığı</em>';TR.tr.hp='Şehir ve tarih girin — o gün için beklenen yüksek ve düşük değerleri görün.';TR.tr.lc='Varış şehri';TR.tr.ld='Seyahat tarihi';TR.tr.btn='🌡️ Sıcaklık Göster';
-TR.ru.h1='Температура <em>в день поездки</em>';TR.ru.hp='Введите город и дату — посмотрите ожидаемый максимум и минимум.';TR.ru.lc='Город назначения';TR.ru.ld='Дата поездки';TR.ru.btn='🌡️ Показать Температуру';
+const TV=[{l:0,t:28},{l:4.5,t:30},{l:9,t:33},{l:13.5,t:37},{l:18,t:39},{l:22.5,t:32},{l:27,t:30},{l:31.5,t:28},{l:36,t:26},{l:40.5,t:24},{l:45,t:20},{l:49.5,t:17},{l:54,t:14},{l:58.5,t:10},{l:63,t:4},{l:67.5,t:3},{l:72,t:5},{l:76.5,t:9},{l:81,t:11},{l:85.5,t:6},{l:90,t:3}];
+const TI=[{l:0,t:15},{l:4.5,t:16},{l:9,t:18},{l:13.5,t:20},{l:18,t:21},{l:22.5,t:18},{l:27,t:17},{l:31.5,t:14},{l:36,t:11},{l:40.5,t:8},{l:45,t:5},{l:49.5,t:2},{l:54,t:-1},{l:58.5,t:-4},{l:63,t:-8},{l:67.5,t:-9},{l:72,t:-6},{l:76.5,t:-2},{l:81,t:0},{l:85.5,t:-5},{l:90,t:-8}];
+function interp(absLat, tbl){if(absLat<=0) return tbl[0].t;if(absLat>=90) return tbl[tbl.length-1].t;for(let i=0;i<tbl.length-1;i++){if(absLat>=tbl[i].l&&absLat<=tbl[i+1].l){const r=(absLat-tbl[i].l)/(tbl[i+1].l-tbl[i].l);return tbl[i].t+r*(tbl[i+1].t-tbl[i].t);}}return tbl[tbl.length-1].t;}
+function calcDia(city, dateStr){const d = new Date(dateStr+'T12:00:00');const doy = Math.round((d - new Date(d.getFullYear(),0,1))/86400000)+1;const aLat = Math.abs(city.lat);const sul = city.lat < 0;const bV = interp(aLat, TV);const bI = interp(aLat, TI);const alt = -(city.alt/150);const pV = sul ? +2 : -2;const pI = sul ? +1 : -1;const mV = city.mari ? -2 : 0;const mI = city.mari ? -5 : 0;const tPicoVerao = bV + alt + pV + mV;const tPicoInverno = bI + alt + pI + mI;const picoDia = sul ? 15 : 196;const fase = ((doy - picoDia) / 365) * 2 * Math.PI;const fator = Math.cos(fase);const tMedia = (tPicoVerao+tPicoInverno)/2 + fator*(tPicoVerao-tPicoInverno)/2;let ampl = 10 + (aLat/90)*6;if(city.mari) ampl *= 0.55;const tMax = Math.round((tMedia + ampl/2)*10)/10;const tMin = Math.round((tMedia - ampl/2)*10)/10;return {tMax, tMin};}
+const TR={pt:{h1:'Temperatura <em>no Dia da Viagem</em>',hp:'Digite a cidade e a data — veja a máxima e mínima esperadas naquele dia.',lc:'Cidade de destino', ld:'Data da viagem',btn:'🌡️ Ver Temperatura no Dia',obs_t:'⚠️ Observação:',obs_b:' Valores estimados. Não se aplica a climas desérticos e semiáridos. Índice do Eng. Hermes Soares.',foot:'Índice desenvolvido por', foot2:'Especialista em Estruturas — UFMG e USP · Governador Valadares, MG',ph:'Ex: São Paulo, Paris, Tokyo...',lmax:'MÁXIMA', lmin:'MÍNIMA',lrange:'Amplitude do dia',lpack:'🧳 O que levar',lhot:'Máxima (tarde)', lcold:'Mínima (madrugada)',tab_max:'Cálculo Máxima', tab_min:'Cálculo Mínima',ec:'⚠️ Digite o nome de uma cidade.',est:'VALORES ESTIMADOS — não substitui a previsão meteorológica oficial',ed:'⚠️ Informe a data da viagem.',feel(t){if(t>=40) return'🔥 Calor extremo — risco de insolação';if(t>=35) return'🥵 Muito quente';if(t>=28) return'☀️ Quente';if(t>=22) return'😊 Agradável';if(t>=15) return'🌤️ Ameno';if(t>=8) return'🧥 Frio';if(t>=0) return'🥶 Muito frio';return'🧊 Abaixo de zero — risco de geada';},pack(mx,mn){const i=[];if(mx>=35) i.push('Roupas muito leves 👕','Protetor solar FPS50+ 🧴','Óculos de sol 🕶️','Chapéu ☀️','Água sempre 💧');else if(mx>=28) i.push('Roupas leves 👕','Protetor solar 🧴','Óculos de sol 🕶️');else if(mx>=20) i.push('Camiseta e calça leve 👕','Casaco fino para à tarde 🧥');else i.push('Roupas de meia estação 🧣','Casaco médio 🧥');if(mn<=10) i.push('Casaco para a noite 🧥','Suéter 🧶');if(mn<=2) i.push('Luvas e cachecol 🧤','Bota fechada 👢');if(mn<0) i.push('Roupa interior térmica 🧣','Gorro ❄️');return i.join('\n');}},en:{h1:'Temperature <em>on Travel Day</em>',hp:'Enter the city and date — see the expected high and low for that day.',lc:'Destination city', ld:'Travel date',btn:'🌡️ Get Day Temperature',obs_t:'⚠️ Note:',obs_b:' Estimated values. Does not apply to desert or semi-arid climates. Hermes Soares index.',foot:'Index developed by', foot2:'Structural Engineering Specialist — UFMG and USP · Brazil',ph:'E.g.: Paris, Tokyo, New York...',lmax:'HIGH', lmin:'LOW',lrange:'Daily range',lpack:'🧳 What to pack',lhot:'High (afternoon)', lcold:'Low (overnight)',tab_max:'High Calculation', tab_min:'Low Calculation',ec:'⚠️ Please type a city name.',est:'ESTIMATED VALUES — does not replace official weather forecast',ed:'⚠️ Please enter the travel date.',feel(t){if(t>=40) return'🔥 Extreme heat — heatstroke risk';if(t>=35) return'🥵 Very hot';if(t>=28) return'☀️ Hot';if(t>=22) return'😊 Pleasant';if(t>=15) return'🌤️ Mild';if(t>=8) return'🧥 Cold';if(t>=0) return'🥶 Very cold';return'🧊 Below freezing — frost risk';},pack(mx,mn){const i=[];if(mx>=35) i.push('Light summer clothes 👕','Sunscreen SPF50+ 🧴','Sunglasses 🕶️','Hat ☀️','Water always 💧');else if(mx>=28) i.push('Light clothes 👕','Sunscreen 🧴','Sunglasses 🕶️');else if(mx>=20) i.push('T-shirt and light pants 👕','Light jacket for afternoon 🧥');else i.push('Mid-season clothes 🧣','Medium jacket 🧥');if(mn<=10) i.push('Jacket for evenings 🧥','Sweater 🧶');if(mn<=2) i.push('Gloves and scarf 🧤','Boots 👢');if(mn<0) i.push('Thermal underwear 🧣','Warm hat ❄️');return i.join('\n');}}};
 let LANG='pt', city=null, results=[], hi=-1;
 function t(k){return(TR[LANG]||TR.en)[k]||'';}
 function tf(k,...a){const f=(TR[LANG]||TR.en)[k];return typeof f==='function'?f(...a):'';}
-function setLang(l){
-LANG=l;
-document.querySelectorAll('.lb').forEach(b=>b.classList.remove('on'));
-document.querySelector(`.lb[onclick="setLang('${l}')"]`).classList.add('on');
-document.body.style.direction=(l==='ar'||l==='he')?'rtl':'ltr';
-ui();
-}
-function ui(){
-document.getElementById('h1').innerHTML = t('h1');
-document.getElementById('hp').textContent = t('hp');
-document.getElementById('lbl-c').textContent = t('lc');
-document.getElementById('lbl-d').textContent = t('ld');
-document.getElementById('btn-t').textContent = t('btn');
-document.getElementById('obs-t').textContent = t('obs_t');
-document.getElementById('obs-b').textContent = t('obs_b');
-document.getElementById('h-foot').textContent= t('foot');
-document.getElementById('h-foot2').textContent=t('foot2');
-document.getElementById('city-inp').placeholder=t('ph');
-document.getElementById('lbl-max').textContent=t('lmax');
-document.getElementById('lbl-min').textContent=t('lmin');
-document.getElementById('lbl-pack').textContent=t('lpack');
-document.getElementById('leg-h').textContent =t('lhot');
-document.getElementById('leg-c').textContent =t('lcold');
-document.getElementById('lbl-range').textContent=t('lrange')||'';
-}
-// ── BUSCA ──
-const inp=document.getElementById('city-inp');
-const box=document.getElementById('sbox');
-inp.addEventListener('input',function(){
-const q=this.value.trim().toLowerCase();
-hi=-1; city=null;
-if(q.length<2){box.style.display='none';return;}
-results=CITIES.filter(c=>c.n.toLowerCase().includes(q)||c.c.toLowerCase().includes(q)).slice(0,8);
-if(!results.length){box.style.display='none';return;}
-box.innerHTML=results.map((c,i)=>`
-<div class="si" data-i="${i}">
-<span class="si-flag">${c.f}</span>
-<div>
-<div class="si-name">${c.n}</div>
-<div class="si-sub">${c.c}${c.mari?' · 🌊':''}</div>
-</div>
-</div>`).join('');
-box.querySelectorAll('.si').forEach((el,i)=>{
-el.addEventListener('mousedown',e=>{e.preventDefault();pick(i);});
-el.addEventListener('touchstart',()=>pick(i),{passive:true});
-});
-box.style.display='block';
-});
-inp.addEventListener('keydown',function(e){
-const its=box.querySelectorAll('.si');
-if(!its.length)return;
-if(e.key==='ArrowDown'){e.preventDefault();hi=Math.min(hi+1,its.length-1);hl(its);}
-else if(e.key==='ArrowUp'){e.preventDefault();hi=Math.max(hi-1,0);hl(its);}
-else if(e.key==='Enter'&&hi>=0){e.preventDefault();pick(hi);}
-else if(e.key==='Escape')box.style.display='none';
-});
-inp.addEventListener('blur',function(){
-setTimeout(()=>{
-if(city)return;
-const q=inp.value.trim().toLowerCase();
-if(!q)return;
-const m=CITIES.filter(c=>c.n.toLowerCase().includes(q)||c.c.toLowerCase().includes(q));
-if(m.length>0)pick2(m[0]);
-box.style.display='none';
-},250);
-});
-document.addEventListener('click',e=>{
-if(!e.target.closest('#city-inp')&&!e.target.closest('#sbox'))box.style.display='none';
-});
+function setLang(l){LANG=l;document.querySelectorAll('.lb').forEach(b=>b.classList.remove('on'));document.querySelector(`.lb[onclick="setLang('${l}')"]`).classList.add('on');document.body.style.direction=(l==='ar'||l==='he')?'rtl':'ltr';ui();}
+function ui(){document.getElementById('h1').innerHTML = t('h1');document.getElementById('hp').textContent = t('hp');document.getElementById('lbl-c').textContent = t('lc');document.getElementById('lbl-d').textContent = t('ld');document.getElementById('btn-t').textContent = t('btn');document.getElementById('obs-t').textContent = t('obs_t');document.getElementById('obs-b').textContent = t('obs_b');document.getElementById('h-foot').textContent= t('foot');document.getElementById('h-foot2').textContent=t('foot2');document.getElementById('city-inp').placeholder=t('ph');document.getElementById('lbl-max').textContent=t('lmax');document.getElementById('lbl-min').textContent=t('lmin');document.getElementById('lbl-pack').textContent=t('lpack');document.getElementById('leg-h').textContent =t('lhot');document.getElementById('leg-c').textContent =t('lcold');document.getElementById('lbl-range').textContent=t('lrange')||'';}
+const inp=document.getElementById('city-inp');const box=document.getElementById('sbox');
+inp.addEventListener('input',function(){const q=this.value.trim().toLowerCase();hi=-1; city=null;if(q.length<2){box.style.display='none';return;}results=CITIES.filter(c=>c.n.toLowerCase().includes(q)||c.c.toLowerCase().includes(q)).slice(0,8);if(!results.length){box.style.display='none';return;}box.innerHTML=results.map((c,i)=>`<div class="si" data-i="${i}"><span class="si-flag">${c.f}</span><div><div class="si-name">${c.n}</div><div class="si-sub">${c.c}${c.mari?' · 🌊':''}</div></div></div>`).join('');box.querySelectorAll('.si').forEach((el,i)=>{el.addEventListener('mousedown',e=>{e.preventDefault();pick(i);});el.addEventListener('touchstart',()=>pick(i),{passive:true});});box.style.display='block';});
+inp.addEventListener('keydown',function(e){const its=box.querySelectorAll('.si');if(!its.length)return;if(e.key==='ArrowDown'){e.preventDefault();hi=Math.min(hi+1,its.length-1);hl(its);}else if(e.key==='ArrowUp'){e.preventDefault();hi=Math.max(hi-1,0);hl(its);}else if(e.key==='Enter'&&hi>=0){e.preventDefault();pick(hi);}else if(e.key==='Escape')box.style.display='none';});
+inp.addEventListener('blur',function(){setTimeout(()=>{if(city)return;const q=inp.value.trim().toLowerCase();if(!q)return;const m=CITIES.filter(c=>c.n.toLowerCase().includes(q)||c.c.toLowerCase().includes(q));if(m.length>0)pick2(m[0]);box.style.display='none';},250);});
+document.addEventListener('click',e=>{if(!e.target.closest('#city-inp')&&!e.target.closest('#sbox'))box.style.display='none';});
 function hl(its){its.forEach((el,i)=>el.classList.toggle('hi',i===hi));if(hi>=0)its[hi].scrollIntoView({block:'nearest'});}
 function pick(i){pick2(results[i]);}
-function pick2(c){
-if(!c)return;
-city=c;
-inp.value=c.n+' — '+c.c;
-box.style.display='none';
-document.getElementById('err').classList.remove('on');
-}
-// ── CALCULAR ──
-function go(){
-const err=document.getElementById('err');
-err.classList.remove('on');
-if(!city){
-const q=inp.value.trim().toLowerCase();
-if(q.length>=2){
-const m=CITIES.filter(c=>c.n.toLowerCase().includes(q)||c.c.toLowerCase().includes(q));
-if(m.length>0)pick2(m[0]);
-}
-}
-if(!city){err.textContent=t('ec');err.classList.add('on');inp.focus();return;}
-const dv=document.getElementById('date-inp').value;
-if(!dv){err.textContent=t('ed');err.classList.add('on');return;}
-const {tMax,tMin}=calcDia(city,dv);
-const rc=document.getElementById('rcard');
-rc.style.display='block';
-setTimeout(()=>rc.scrollIntoView({behavior:'smooth',block:'start'}),80);
-// Header
-const d=new Date(dv+'T12:00:00');
-const loc={pt:'pt-BR',en:'en',es:'es',fr:'fr',de:'de',it:'it',ja:'ja',zh:'zh',ar:'ar',he:'he',tr:'tr',ru:'ru'}[LANG]||'en';
-document.getElementById('r-city').textContent=city.n+' '+city.f;
-document.getElementById('r-date').textContent=d.toLocaleDateString(loc,{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-// MAX e MIN
-document.getElementById('r-max').textContent=(tMax>0?'+':'')+tMax+'°C';
-document.getElementById('r-min').textContent=(tMin>0?'+':'')+tMin+'°C';
-document.getElementById('r-max-feel').textContent=tf('feel',tMax);
-document.getElementById('r-min-feel').textContent=tf('feel',tMin);
-// Termômetro (−30 a +45 = 75°)
-const pH=Math.min(Math.max((tMax+30)/75*100,2),98);
-const pC=Math.min(Math.max((tMin+30)/75*100,2),98);
-document.getElementById('pin-h').style.left=pH+'%';
-document.getElementById('pin-c').style.left=pC+'%';
-// Pack
-document.getElementById('r-pack').textContent=tf('pack',tMax,tMin);
-}
-// Init
+function pick2(c){if(!c)return;city=c;inp.value=c.n+' — '+c.c;box.style.display='none';document.getElementById('err').classList.remove('on');}
+function go(){const err=document.getElementById('err');err.classList.remove('on');if(!city){const q=inp.value.trim().toLowerCase();if(q.length>=2){const m=CITIES.filter(c=>c.n.toLowerCase().includes(q)||c.c.toLowerCase().includes(q));if(m.length>0)pick2(m[0]);}}if(!city){err.textContent=t('ec');err.classList.add('on');inp.focus();return;}const dv=document.getElementById('date-inp').value;if(!dv){err.textContent=t('ed');err.classList.add('on');return;}const {tMax,tMin}=calcDia(city,dv);const rc=document.getElementById('rcard');rc.style.display='block';setTimeout(()=>rc.scrollIntoView({behavior:'smooth',block:'start'}),80);const d=new Date(dv+'T12:00:00');const loc={pt:'pt-BR',en:'en',es:'es',fr:'fr',de:'de',it:'it',ja:'ja',zh:'zh',ar:'ar',he:'he',tr:'tr',ru:'ru'}[LANG]||'en';document.getElementById('r-city').textContent=city.n+' '+city.f;document.getElementById('r-date').textContent=d.toLocaleDateString(loc,{weekday:'long',day:'numeric',month:'long',year:'numeric'});document.getElementById('r-max').textContent=(tMax>0?'+':'')+tMax+'°C';document.getElementById('r-min').textContent=(tMin>0?'+':'')+tMin+'°C';document.getElementById('r-max-feel').textContent=tf('feel',tMax);document.getElementById('r-min-feel').textContent=tf('feel',tMin);const pH=Math.min(Math.max((tMax+30)/75*100,2),98);const pC=Math.min(Math.max((tMin+30)/75*100,2),98);document.getElementById('pin-h').style.left=pH+'%';document.getElementById('pin-c').style.left=pC+'%';document.getElementById('r-pack').textContent=tf('pack',tMax,tMin);}
 ui();
 document.getElementById('date-inp').value=new Date().toISOString().split('T')[0];
 </script>
